@@ -1,96 +1,129 @@
-const btn = document.querySelector(".menu");
-const contact = document.querySelector(".contact");
-const about = document.querySelector(".about");
-const info = document.querySelector(".info");
-const home = document.querySelector(".home");
-const btn1 =document.querySelector(".Button1");
-const btn2 = document.querySelector("#Button");
-const btn3 = document.querySelector("#button3");
+// script.js
+document.addEventListener('DOMContentLoaded', () => {
+  /************************************************
+                NAVIGATION LINKS               
+   ************************************************/
+  const navMap = {
+    menu:        'menu.html',
+    home:        'index.html',
+    about:       'about.html',
+    contact:      'contact.html', 
+    info :        'information.html',
+    'sign-in':        'signIn.html' 
+  };
 
-document.addEventListener("DOMContentLoaded", function () {
-  const order = document.querySelector(".order-now-btn");
-  if (order) {
-    order.addEventListener("click", function () {
-      window.location.href = "foodOrder.html";
+  Object.entries(navMap).forEach(([cls, href]) => {
+    document.querySelector(`.${cls}`)?.addEventListener('click', () => (location.href = href));
+  });
+
+  /************************************************
+               CTA BUTTONS (if present)        
+   ************************************************/
+  document.querySelector('.order-now-btn')?.addEventListener('click', () => (location.href = 'foodOrder.html'));
+  document.querySelector('.Button1')?.addEventListener('click', () => (location.href = 'menu.html'));
+  document.querySelector('#Button')?.addEventListener('click', () => (location.href = 'about.html'));
+  document.querySelector('#button3')?.addEventListener('click', () => (location.href = 'menu.html'));
+
+  /************************************************
+               CONTACT FORM (contact.html)     
+   ************************************************/
+  const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+  contactForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    const payload = {
+      name:    document.getElementById('name').value,
+      email:   document.getElementById('email').value,
+      message: document.getElementById('message').value,
+    };
+    try {
+      const res = await fetch('http://localhost:3000/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (data.success) {
+        alert('Thank you! Your message has been sent.');
+        contactForm.reset();
+      } else {
+        alert('Server error; try later.');
+      }
+    } catch (err) {
+      console.error('Fetch fail', err);
+      alert('Cannot reach server');
+    }
+  });
+}
+
+  /************************************************
+               ORDER FORM (foodOrder.html)     
+   ************************************************/
+  const orderForm = document.getElementById('orderForm');       // form id="orderForm"
+  if (orderForm) {
+    orderForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const payload = {
+        name:    document.getElementById('name').value,
+        phone:   document.getElementById('phone').value,
+        address: document.getElementById('address').value,
+        food:    document.getElementById('food').value,
+      };
+
+      console.log(' Order payload:', payload);
+
+      try {
+        const res  = await fetch('http://localhost:3000/api/orders', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const data = await res.json();
+        (data.success)
+          ? alert('Thank you! Your order has been placed.')
+          : alert('Something went wrong. Please try again.');
+        if (data.success) orderForm.reset();
+      } catch (err) {
+        console.error('Order fetch error:', err);
+        alert('Server unreachable');
+      }
     });
   }
+
+  console.log(' script.js initialised (page-specific handlers attached)');
 });
 
+/************************************************
+             SIGN-IN FORM (signIn.html)      
+ ************************************************/
+const signInForm = document.getElementById('signInForm');
+if (signInForm) {
+  signInForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
+    const payload = {
+      email:    document.getElementById('email').value,
+      password: document.getElementById('password').value,
+    };
 
-document.addEventListener("DOMContentLoaded", function () {
-  const singIn = document.querySelector(".sign-in");
-  if (singIn) {
-    singIn.addEventListener("click", function () {
-      window.location.href = "signIn.html";
-    });
-  }
-});
+    try {
+      const res  = await fetch('http://localhost:3000/api/users/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
 
-btn.addEventListener("click" ,function(){
-    window.location.href = "menu.html";
-});
-
-contact.addEventListener("click", function (e) {
-    window.location.href = "contact.html";
+      if (data.success) {
+        alert('Login successful ');
+        location.href = 'index.html';
+      } else {
+        alert(data.message || 'Invalid credentials');
+      }
+    } catch (err) {
+      console.error('Login fetch error:', err);
+      alert('Server unreachable');
+    }
   });
-
-  about.addEventListener("click", function(){
-     window.location.href = "about.html";
-  });
-
- info.addEventListener("click", function(){
-     window.location.href = "information.html";
-  });
-
-  home.addEventListener("click", function(){
-     window.location.href = "index.html";
-  });
-
-  btn1.addEventListener("click", function(){
-     window.location.href = "menu.html";
-  });
-
-  btn2.addEventListener("click", function(){
-     window.location.href = "about.html";
-  });
-
-   btn3.addEventListener("click", function(){
-     window.location.href = "menu.html";
-  });
-
-  singIn.addEventListener("click", function(){
-     window.location.href = "signIn.html";
-  });
-
- 
-contact.addEventListener('submit', async function (e) {
-  e.preventDefault();
-
-  const name = document.querySelector('#name').value;
-  const email = document.querySelector('#email').value;
-  const message = document.querySelector('#message').value;
-
-  const response = await fetch('http://localhost:3000/api/contact', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ name, email, message }),
-  });
-
-  const data = await response.json();
-
-  if (data.success) {
-    alert("Thank you! Your message has been sent.");
-    this.reset();
-  } else {
-    alert("Something went wrong. Please try again.");
-  }
-});
-
-
-
-
-
-
+}

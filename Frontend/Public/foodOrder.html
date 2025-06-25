@@ -1,76 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Css/style.css">
-    <link rel="stylesheet" href="Css/foodOrder.css">
-    <link rel="stylesheet" href="Css/footer.css">
-    <title>Document</title>
-</head>
-<body>
-    <!DOCTYPE html>
-<html lang="en">
-<head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Order Food</title>
-  <link rel="stylesheet" href="order.css">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="Css/style.css" />
+  <link rel="stylesheet" href="Css/foodOrder.css" />
+  <link rel="stylesheet" href="Css/footer.css" />
 </head>
+
 <body>
-    <div class="heading">
+  <!-- Heading + Navbar -->
+  <div class="heading">
     <div class="heading1">Contact us to arrange a testing of your catering menu</div>
-    </div>
+  </div>
+
   <div class="navbar">
-        <div class="name"><h1>About us</h1></div>
-        <div class="home">Home</div>
-        <div class="menu">Menu 
-            
-        </div>
-        <div class="about">About us</div>
-        <div class="contact">Contact us</div>
-        <div class="info">Information</div>
-        <div class="info">Sign In</div>
-    </div>
+    <div class="name"><h1>About us</h1></div>
+    <div class="home">Home</div>
+    <div class="menu">Menu</div>
+    <div class="about">About us</div>
+    <div class="contact">Contact us</div> <!-- class बदली -->
+    <div class="info">Information</div>
+    <div class="sign-in">Sign In</div>
+  </div>
+
+  <!-- Order Form -->
   <div class="order-container">
     <h1>Order Your Favorite Food</h1>
     <form id="orderForm">
       <label for="name">Full Name</label>
-      <input type="text" id="name" name="name" required />
+      <input type="text" id="name" required />
 
       <label for="phone">Phone Number</label>
-      <input type="tel" id="phone" name="phone" required />
+      <input type="tel" id="phone" required />
 
       <label for="address">Delivery Address</label>
-      <textarea id="address" name="address" required></textarea>
+      <textarea id="address" required></textarea>
 
       <label for="food">Select Food Item</label>
-      <select id="food" name="food" required>
+      <select id="food" required>
         <option value="">-- Select --</option>
-        <option value="Pizza">Pizza</option>
-        <option value="Burger">Burger</option>
-        <option value="Paneer Tikka">Paneer Tikka</option>
-        <option value="South Indian Thali">South Indian Thali</option>
-        <option value="Gulab Jamun">Gulab Jamun</option>
+        <option>Pizza</option>
+        <option>Burger</option>
+        <option>Paneer Tikka</option>
+        <option>South Indian Thali</option>
+        <option>Gulab Jamun</option>
       </select>
 
       <button type="submit">Place Order</button>
     </form>
   </div>
 
-  <script>
-    const form = document.getElementById('orderForm');
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      alert("Thank you! Your order has been placed.");
-      form.reset();
-    });
-  </script>
-</body>
-</html>
-<footer class="footer">
-  <div"><h2>Welcome</h2></div>
-        <div><h2>TAKE ADVANTAGE OF SPECIAL BENIFITS</h2></div>
+  <!-- Footer -->
+  <footer class="footer">
+    <div><h2>Welcome</h2></div>
+    <div><h2>TAKE ADVANTAGE OF SPECIAL BENEFITS</h2></div>
+
     <div class="footer-links">
       <a href="#home">Home</a>
       <a href="#about">About</a>
@@ -86,6 +74,8 @@
       &copy; 2025 MyFoodSite. All rights reserved.
     </div>
   </footer>
-   <script src="script.js"></script>
+
+  <!-- Single, correct JS include -->
+  <script src="script.js"></script>
 </body>
 </html>
