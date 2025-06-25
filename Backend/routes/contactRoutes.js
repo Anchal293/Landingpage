@@ -1,9 +1,7 @@
-const express = require('express');
-const router = express.Router();  // ✅ Pehle router define karo
+const router = require('express').Router();
+const { postContact, getContacts } = require('../controllers/contactController');
 
-const { postContact } = require('../controllers/contactController');
-
-// ✅ Ab router ka use karo
-router.post('/', postContact);
+router.post('/', postContact);   //  POST /api/contact
+router.get('/',  getContacts);   //  GET  /api/contact
 
 module.exports = router;
